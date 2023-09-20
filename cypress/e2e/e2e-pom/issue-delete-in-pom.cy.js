@@ -12,7 +12,6 @@ describe('Issue delete', () => {
   });
 
   const issueTitle = 'This is an issue of type: Task.'
-  //To check the backlog amount of issues
   const expectedAmountOfIssues3 = '3'
   const expectedAmountOfIssues4 = '4'
 
