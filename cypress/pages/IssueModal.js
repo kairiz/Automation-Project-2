@@ -116,6 +116,18 @@ class IssueModal {
         cy.get(this.issueDetailModal).get(this.closeDetailModalButton).first().click();
         cy.get(this.issueDetailModal).should('not.exist');
     }
+
+    expectedAmountIssues(expectedAmountOfIssues3) {
+        cy.get(this.backlogList).should('be.visible').and('have.length', '1').within(() => {
+            cy.get(this.issuesList).should('have.length', expectedAmountOfIssues3)
+        });
+    }
+
+    expectedAmountIssues(expectedAmountOfIssues4) {
+        cy.get(this.backlogList).should('be.visible').and('have.length', '1').within(() => {
+            cy.get(this.issuesList).should('have.length', expectedAmountOfIssues4)
+        });
+    }
 }
 
 export default new IssueModal();

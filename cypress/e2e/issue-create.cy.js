@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 
-const words = faker.lorem.words()
-const word = faker.lorem.word()
+const description = faker.lorem.words()
+const title = faker.lorem.word()
 
 describe('Issue create', () => {
   beforeEach(() => {
@@ -61,7 +61,7 @@ describe('Issue create', () => {
     });
   });
 
-  //Assignment 2.2 Test Case 1: Custon Issue Creation
+  //Assignment 2.2 Test Case 1: Custom Issue Creation
   it('Should create an issue and validate it successfully', () => {
     cy.get('[data-testid="modal:issue-create"]').within(() => {
       cy.get('.ql-editor').type('My bug description')
@@ -93,13 +93,13 @@ describe('Issue create', () => {
 
       cy.get('[data-testid="icon:bug"]').should('be.visible');
     });
-  });
+  })
 
   //Assignment 2.3 Test Case 2: Random Data Plugin Issue Creation
   it('Should create an issue (using faker) and validate it successfully', () => {
     cy.get('[data-testid="modal:issue-create"]').within(() => {
-      cy.get('.ql-editor').type(words)
-      cy.get('input[name="title"]').type(word)
+      cy.get('.ql-editor').type(description)
+      cy.get('input[name="title"]').type(title)
       cy.get('[data-testid="select:type"]').should('contain', 'Task')
 
       cy.get('[data-testid="select:priority"]').click()
@@ -121,16 +121,16 @@ describe('Issue create', () => {
         .should('have.length', '5')
         .first()
         .find('p')
-        .contains(word)
-    })
-
+        .contains(title)
+    });
+  
     cy.get('[data-testid="board-list:backlog').within(() => {
       cy.get('[data-testid="list-issue"]').eq(0).within(() => {
       cy.get('[data-testid="icon:arrow-down"]').should('be.visible')
       .get('[data-testid="icon:task"]').should('be.visible')
       });
     });
-
+  })
     
   it('Should validate title is required field if missing', () => {
     //System finds modal for creating issue and does next steps inside of it
@@ -142,5 +142,5 @@ describe('Issue create', () => {
       cy.get('[data-testid="form-field:title"]').should('contain', 'This field is required');
     })
   })
-})
+
 })
