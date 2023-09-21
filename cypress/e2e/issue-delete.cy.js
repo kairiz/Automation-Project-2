@@ -39,6 +39,7 @@ describe('Issue deleting', () => {
     })
 
     cy.get('[data-testid="modal:modal:confirm"]').should('not.exist')
+    cy.get('[data-testid="icon:close"]').eq(0).click()
     
     cy.get('[data-testid="board-list:backlog').should('be.visible').and('have.length', '1').within(() => {
       cy.get('[data-testid="list-issue"]')
