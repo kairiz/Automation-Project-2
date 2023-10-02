@@ -22,7 +22,7 @@ describe('Issue time tracking functionality', () => {
 
     it('Possible to add, edit and delete issue estimated time', () => {
         //Estimated time is not logged by default; Log 10h
-        getIssueDetailsModal().within(() => {
+        getIssueDetailsModal().should('be.visible').within(() => {
             cy.get('input[placeholder="Number"]')
                 .should('not.have.value')
                 .click()
@@ -92,13 +92,12 @@ describe('Issue time tracking functionality', () => {
 
 
     it('Possible to log time and remove logged time', () => {
-        //Log time
-
         getIssueDetailsModal().should('be.visible').within(() => {
             cy.get('input[placeholder="Number"]').click().type(10)
             cy.get('[data-testid="icon:stopwatch"]').click()
         })
 
+        //Log time
         cy.get('[data-testid="modal:tracking"]').should('be.visible').within(() => {
             cy.contains('No time logged')
             cy.get('input[placeholder="Number"]')
