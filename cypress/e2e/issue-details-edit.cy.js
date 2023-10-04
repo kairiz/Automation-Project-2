@@ -1,9 +1,15 @@
+const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]')
+
+
+
 describe('Issue details editing', () => {
   beforeEach(() => {
     cy.visit('/');
     cy.url().should('eq', `${Cypress.env('baseUrl')}project`).then((url) => {
       cy.visit(url + '/board');
       cy.contains('This is an issue of type: Task.').click();
+      cy.url()
+      cy.get('[data-testid="modal:issue-details"]').should('be.visible')
     });
   });
 
@@ -11,8 +17,8 @@ describe('Issue details editing', () => {
     getIssueDetailsModal().within(() => {
       cy.get('[data-testid="select:type"]').click('bottomRight');
       cy.get('[data-testid="select-option:Story"]')
-          .trigger('mouseover')
-          .trigger('click');
+        .trigger('mouseover')
+        .trigger('click');
       cy.get('[data-testid="select:type"]').should('contain', 'Story');
 
       cy.get('[data-testid="select:status"]').click('bottomRight');
@@ -62,4 +68,42 @@ describe('Issue details editing', () => {
   });
 
   const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]');
-});
+
+
+  it('Should validate values in issue priorities', () => {
+    const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]')
+    const expectedLength = 5
+    const priorities = ["Lowest", "Low", "Medium", "High", "Highest"]
+
+    getIssueDetailsModal()
+      .get('[data-testid="select:priority"]').click()
+  })
+
+  it.only('Should validate reporters name', () => {
+    function reporter(){
+      cy.get('[data-testid="select:reporter"]')
+        .children()
+        .children()
+        .next()
+        .contains('Baby Yoda')
+    }
+    //const reporter1 = cy.get('[data-testid="select:reporter"] > .sc-eerKOB > .sc-emmjRN').contains('Baby Yoda')
+    const regex = /[A-Za-z]\s/
+    const regex2 = /^[A-Za-z\s]$/
+    const reporter2 = ["Baby Yoda"]
+
+    cy.get(reporter).should('match', regex)
+    
+  })
+
+  it('Should validate reporters name', () => {
+    const reporter = cy.get('[data-testid="select:reporter"]').children().children().next().contains('Baby Yoda')
+    //const reporter1 = cy.get('[data-testid="select:reporter"] > .sc-eerKOB > .sc-emmjRN').contains('Baby Yoda')
+    const regex = /[A-Za-z]\s/
+    const regex2 = /^[A-Za-z\s]$/
+    const reporter2 = ["Baby Yoda"]
+
+    cy.get(reporter).should('match', regex2)
+    
+  })
+})

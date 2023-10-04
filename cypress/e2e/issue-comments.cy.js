@@ -66,7 +66,7 @@ describe('Issue comments creating, editing and deleting', () => {
                 .should('not.contain', comment)
         })
 
-        //Cancel the deletetion process (extra)
+        //Cancel the deletetion process
         getIssueDetailsModal().should('be.visible').within(() => {
             cy.get('[data-testid="issue-comment"]')
                 .contains(newComment)
