@@ -67,12 +67,14 @@ describe('Issue details editing', () => {
 
   //Assignment 3.2 
   it.only('Checking reporters name with regex', () => {
-    const regex = /^[A-Za-z ]*$/
+    const regex = /^[A-Za-z\s]$/ //Given in assignment - no match
+    const regexNew = /^[A-Za-z ]*$/ //Used another regex that matches with "Baby Yoda", found from web
     const issueReporter = cy.get('[data-testid="select:reporter"]')
 
     getIssueDetailsModal().within(() => {
-      issueReporter.invoke('text')
-        .should('match', regex);
+      issueReporter
+        .invoke('text')
+        .should('match', regexNew);
     });
   });
 })
