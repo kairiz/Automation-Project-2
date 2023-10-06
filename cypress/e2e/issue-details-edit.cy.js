@@ -64,4 +64,15 @@ describe('Issue details editing', () => {
       cy.get('.ql-snow').should('have.text', description);
     });
   });
+
+  //Assignment 3.2 
+  it.only('Checking reporters name with regex', () => {
+    const regex = /^[A-Za-z ]*$/
+    const issueReporter = cy.get('[data-testid="select:reporter"]')
+
+    getIssueDetailsModal().within(() => {
+      issueReporter.invoke('text')
+        .should('match', regex);
+    });
+  });
 })
