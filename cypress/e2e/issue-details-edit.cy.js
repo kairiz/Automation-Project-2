@@ -1,7 +1,5 @@
 const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]')
 
-
-
 describe('Issue details editing', () => {
   beforeEach(() => {
     cy.visit('/');
@@ -66,44 +64,4 @@ describe('Issue details editing', () => {
       cy.get('.ql-snow').should('have.text', description);
     });
   });
-
-  const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]');
-
-
-  it('Should validate values in issue priorities', () => {
-    const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]')
-    const expectedLength = 5
-    const priorities = ["Lowest", "Low", "Medium", "High", "Highest"]
-
-    getIssueDetailsModal()
-      .get('[data-testid="select:priority"]').click()
-  })
-
-  it.only('Should validate reporters name', () => {
-    function reporter(){
-      cy.get('[data-testid="select:reporter"]')
-        .children()
-        .children()
-        .next()
-        .contains('Baby Yoda')
-    }
-    //const reporter1 = cy.get('[data-testid="select:reporter"] > .sc-eerKOB > .sc-emmjRN').contains('Baby Yoda')
-    const regex = /[A-Za-z]\s/
-    const regex2 = /^[A-Za-z\s]$/
-    const reporter2 = ["Baby Yoda"]
-
-    cy.get(reporter).should('match', regex)
-    
-  })
-
-  it('Should validate reporters name', () => {
-    const reporter = cy.get('[data-testid="select:reporter"]').children().children().next().contains('Baby Yoda')
-    //const reporter1 = cy.get('[data-testid="select:reporter"] > .sc-eerKOB > .sc-emmjRN').contains('Baby Yoda')
-    const regex = /[A-Za-z]\s/
-    const regex2 = /^[A-Za-z\s]$/
-    const reporter2 = ["Baby Yoda"]
-
-    cy.get(reporter).should('match', regex2)
-    
-  })
 })

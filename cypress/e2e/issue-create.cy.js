@@ -12,7 +12,7 @@ describe('Issue create', () => {
     });
   });
 
-
+  
   it('Should create an issue and validate it successfully', () => {
     //System finds modal for creating issue and does next steps inside of it
     cy.get('[data-testid="modal:issue-create"]').within(() => {
@@ -143,4 +143,28 @@ describe('Issue create', () => {
     })
   })
 
+  //Sprint 2, Assignment 3.3
+  it.only('Should validate that the application is removing unnecessary spaces on the board view', () => {
+    const title = "Title   with   multiple   spaces"
+    
+    cy.get('[data-testid="modal:issue-create"]').within(() => {
+      cy.get('.ql-editor').type('My bug description')
+      cy.get('input[name="title"]').type(title)
+      cy.get('button[type="submit"]').click()
+    })
+
+    cy.get('[data-testid="modal:issue-create"]').should('not.exist')
+    cy.contains('Issue has been successfully created.').should('be.visible')
+    cy.reload()
+    cy.contains('Issue has been successfully created.').should('not.exist')
+
+    cy.get('[data-testid="board-list:backlog').should('be.visible').and('have.length', '1').within(() => {
+      cy.get('[data-testid="list-issue"]')
+        .should('have.length', '5')
+        .eq(0)
+        .find('p')
+        .invoke('text')
+        .should('contain', title.trim())
+    })
+  })
 })
